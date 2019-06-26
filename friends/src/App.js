@@ -1,12 +1,30 @@
 import React from 'react';
 import './App.css';
+import FriendForm from "./components/friendForm";
+import FriendList from "./components/friendList";
+import { getFriends } from "./actions/getFriends";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    console.log("Hello");
+    this.props.getFriends();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <FriendForm/>
+        <FriendList/>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    friends: state.friends,
+  }
+}
+
+export default connect(mapStateToProps,{getFriends})(App);
